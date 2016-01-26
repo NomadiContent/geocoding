@@ -69,7 +69,6 @@
     </div>
     
     <div id="input-panel" class="ui-widget-content">
-      <input id="submit-address" type="button" value="Geocode">
       <textarea id="addresses" class="textarea" name="description"></textarea>
     </div>
     
@@ -78,13 +77,9 @@
     </div>
   
     <script>
+var add;
+var splitadd;
 
-document.getElementById('submit-address').addEventListener('click', function() {
-    var add = document.getElementById('addresses').value;
-    for (var i = 0; i < add.length; i++){
-    alert(add[i]);
-    }
-});
 
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
@@ -97,13 +92,11 @@ function initMap() {
     geocodeAddress(geocoder, map);
   });
 }
-
+    
 function geocodeAddress(geocoder, resultsMap) {
+  var address = document.getElementById('addresses').value.split(";");
   var result = "";
-  var address = ["155 Lockhart Road, Hong Kong"];
-  var i = 0;
-  //alert(address[0]);
-  for (i = 0; i < 2; i++){
+  for (var i = 0; i < address.length; i++) {
   geocoder.geocode({'address': address[i]}, function(results, status) {
     if (status === google.maps.GeocoderStatus.OK) {
       resultsMap.setCenter(results[0].geometry.location);
